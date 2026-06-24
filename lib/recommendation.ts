@@ -49,7 +49,7 @@ export function getRecommendation(
 
   let mainService = notSure;
   let explanation =
-    "A short discovery call is the best first move. It will help clarify what you need, what can wait, and what will make the biggest difference.";
+    "Your answers need a little strategic sorting before a useful quote. A project scoping review will define the best route, priority work and likely investment range.";
   const extras: Service[] = [];
 
   if (answers.need === "brand-website" || answers.priority === "brand-refresh") {
@@ -87,7 +87,7 @@ export function getRecommendation(
   ) {
     mainService = notSure;
     explanation =
-      "A full new site may need phasing at this budget. A discovery call or focused action plan can map the smartest first step.";
+      "A full new site may need phasing at this budget. The best first step is to scope the essentials, identify what can wait and shape a clean route into the right service.";
     extras.push(review);
   } else if (
     answers.need === "google" ||
@@ -125,6 +125,6 @@ export function getRecommendation(
     extras: uniqueExtras(extras, mainService),
     explanation,
     nextStep:
-      "Send your project brief and Lift Brandworks will review it before coming back with a clear recommendation."
+      "Send your project brief and Lift Brandworks will review the scope before coming back with a clear, studio-style recommendation."
   };
 }

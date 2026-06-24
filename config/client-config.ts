@@ -61,10 +61,10 @@ export const plannerConfig: PlannerConfig = {
     },
     {
       id: "not-sure",
-      title: "Not Sure Where To Start",
+      title: "Project Scoping Review",
       description:
-        "For users who are unsure. Guide them towards a review or discovery call.",
-      price: "Discovery call recommended"
+        "A focused first step to define the right scope, priorities and route before quoting the larger project.",
+      price: "Scope before quote"
     }
   ],
   questions: [

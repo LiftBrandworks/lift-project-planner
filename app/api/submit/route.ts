@@ -38,15 +38,39 @@ export async function POST(request: Request) {
 }
 
 function getSubmissionSummary(submission: StoredSubmission) {
+  const extras =
+    submission.recommendation.extras.length > 0
+      ? submission.recommendation.extras
+          .map((extra) => `- ${extra.title}: ${extra.price}`)
+          .join("\n")
+      : "None";
+
   return [
+    "New Project Planner brief",
+    "",
+    "Contact",
     `Name: ${submission.contact?.name || ""}`,
     `Business: ${submission.contact?.businessName || ""}`,
     `Email: ${submission.contact?.email || ""}`,
     `Website: ${submission.contact?.websiteUrl || ""}`,
-    `Budget: ${submission.answers?.budget || ""}`,
-    `Recommendation: ${submission.recommendation?.mainService?.title || ""}`,
     "",
-    `Notes: ${submission.contact?.notes || ""}`
+    "Recommendation",
+    `Main service: ${submission.recommendation.mainService.title}`,
+    `Estimated investment: ${submission.recommendation.mainService.price}`,
+    `Reason: ${submission.recommendation.explanation}`,
+    "",
+    "Useful extras",
+    extras,
+    "",
+    "Answers",
+    `Need: ${submission.answers.need}`,
+    `Website: ${submission.answers.website}`,
+    `Priority: ${submission.answers.priority}`,
+    `Assets: ${submission.answers.assets.join(", ") || "None"}`,
+    `Budget: ${submission.answers.budget}`,
+    "",
+    "Notes",
+    submission.contact?.notes || "None"
   ].join("\n");
 }
 
