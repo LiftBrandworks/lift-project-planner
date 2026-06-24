@@ -38,7 +38,7 @@ button {
 .planner-shell {
   width: 100%;
   min-width: 0;
-  padding: clamp(16px, 4vw, 32px);
+  padding: clamp(10px, 3vw, 22px);
   background:
     linear-gradient(135deg, rgba(255, 91, 91, 0.09), transparent 38%),
     var(--wash);
@@ -49,9 +49,9 @@ button {
 }
 
 .planner-panel {
-  width: min(100%, 980px);
+  width: min(100%, 860px);
   margin: 0 auto;
-  padding: clamp(18px, 4vw, 36px);
+  padding: clamp(16px, 3vw, 28px);
   border: 1px solid rgba(34, 34, 34, 0.08);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
@@ -60,14 +60,14 @@ button {
 
 .landing-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-  gap: clamp(24px, 5vw, 48px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(230px, 0.85fr);
+  gap: clamp(18px, 4vw, 34px);
   align-items: center;
 }
 
 .landing-copy {
   display: grid;
-  gap: 20px;
+  gap: 16px;
   align-content: start;
 }
 
@@ -90,16 +90,17 @@ h1,
 h2 {
   max-width: 760px;
   color: var(--accent-colour);
-  font-weight: 850;
+  font-weight: 700;
   line-height: 1.03;
 }
 
 h1 {
-  font-size: clamp(2.25rem, 8vw, 4.7rem);
+  font-size: clamp(1.95rem, 5.8vw, 3.7rem);
+  font-weight: 650;
 }
 
 h2 {
-  font-size: clamp(1.8rem, 6vw, 3.1rem);
+  font-size: clamp(1.55rem, 4.8vw, 2.6rem);
 }
 
 h3 {
@@ -110,15 +111,15 @@ h3 {
 p {
   max-width: 680px;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   line-height: 1.6;
 }
 
 .primary-button,
 .ghost-button {
-  min-height: 48px;
+  min-height: 44px;
   border-radius: 8px;
-  padding: 0 20px;
+  padding: 0 18px;
   border: 1px solid transparent;
   font-weight: 800;
   transition:
@@ -168,7 +169,7 @@ p {
 .service-preview div {
   display: grid;
   gap: 6px;
-  padding: 16px;
+  padding: 12px 14px;
 }
 
 .service-preview span,
@@ -183,7 +184,7 @@ p {
 
 .stack {
   display: grid;
-  gap: clamp(18px, 3vw, 26px);
+  gap: clamp(16px, 2.5vw, 22px);
 }
 
 .progress-wrap {
@@ -224,8 +225,8 @@ p {
 
 .option-button {
   width: 100%;
-  min-height: 64px;
-  padding: 16px;
+  min-height: 58px;
+  padding: 14px;
   text-align: left;
   color: var(--text);
   border: 1px solid var(--line);
