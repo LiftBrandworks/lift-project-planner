@@ -24,7 +24,7 @@ body {
   font-family:
     Lato, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 0;
 }
 
@@ -41,7 +41,7 @@ button {
 .planner-shell {
   width: 100%;
   min-width: 0;
-  padding: clamp(4px, 1vw, 8px);
+  padding: clamp(14px, 3vw, 28px);
   background: transparent;
 }
 
@@ -50,31 +50,32 @@ button {
 }
 
 .planner-panel {
-  width: min(100%, 560px);
+  width: min(100%, 840px);
   margin: 0 auto;
-  padding: clamp(10px, 1.6vw, 14px);
-  border: 1px solid rgba(34, 34, 34, 0.08);
-  border-radius: 8px;
+  padding: clamp(22px, 3.5vw, 34px);
+  border: 1px solid rgba(40, 182, 189, 0.34);
+  border-top: 4px solid var(--primary-colour);
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 10px 28px rgba(44, 31, 26, 0.06);
+  box-shadow: 0 16px 36px rgba(44, 31, 26, 0.12);
 }
 
 .landing-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(140px, 0.75fr);
-  gap: clamp(10px, 2vw, 16px);
+  grid-template-columns: minmax(0, 1.18fr) minmax(250px, 0.82fr);
+  gap: clamp(18px, 4vw, 34px);
   align-items: center;
 }
 
 .landing-copy {
   display: grid;
-  gap: 8px;
+  gap: 16px;
   align-content: start;
 }
 
 .section-kicker {
   color: var(--primary-colour);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -89,41 +90,41 @@ p {
 
 h1,
 h2 {
-  max-width: 360px;
+  max-width: 560px;
   color: var(--accent-colour);
   font-weight: 700;
   line-height: 1.12;
 }
 
 h1 {
-  font-size: clamp(1.05rem, 2vw, 1.55rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.8rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-size: clamp(1.35rem, 3vw, 2rem);
 }
 
 h3 {
   color: var(--accent-colour);
-  font-size: 0.82rem;
+  font-size: 0.95rem;
 }
 
 p {
-  max-width: 360px;
+  max-width: 560px;
   color: var(--muted);
-  font-size: 0.76rem;
-  line-height: 1.4;
+  font-size: 0.96rem;
+  line-height: 1.5;
 }
 
 .primary-button,
 .ghost-button {
-  min-height: 30px;
+  min-height: 42px;
   border-radius: 0;
-  padding: 0 12px;
+  padding: 0 18px;
   border: 1px solid transparent;
-  font-size: 0.66rem;
+  font-size: 0.76rem;
   font-weight: 800;
   text-transform: uppercase;
   transition:
@@ -159,7 +160,7 @@ p {
 
 .service-preview {
   display: grid;
-  gap: 5px;
+  gap: 8px;
 }
 
 .service-preview div,
@@ -172,13 +173,13 @@ p {
 
 .service-preview div {
   display: grid;
-  gap: 3px;
-  padding: 6px 8px;
+  gap: 4px;
+  padding: 13px 14px;
 }
 
 .service-preview span,
 .service-preview strong {
-  font-size: 0.68rem;
+  font-size: 0.88rem;
 }
 
 .service-preview span,
@@ -193,13 +194,13 @@ p {
 
 .stack {
   display: grid;
-  gap: clamp(10px, 1.6vw, 14px);
+  gap: clamp(14px, 2.2vw, 22px);
 }
 
 .progress-wrap {
   display: grid;
   gap: 6px;
-  margin-bottom: clamp(10px, 1.8vw, 14px);
+  margin-bottom: clamp(14px, 2.4vw, 22px);
 }
 
 .progress-meta {
@@ -207,7 +208,7 @@ p {
   justify-content: space-between;
   gap: 16px;
   color: var(--muted);
-  font-size: 0.66rem;
+  font-size: 0.76rem;
   font-weight: 800;
 }
 
@@ -229,13 +230,13 @@ p {
 .extras-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px;
+  gap: 10px;
 }
 
 .option-button {
   width: 100%;
-  min-height: 34px;
-  padding: 7px 9px;
+  min-height: 50px;
+  padding: 12px 14px;
   text-align: left;
   color: var(--text);
   border: 1px solid var(--line);
@@ -246,7 +247,7 @@ p {
 .option-button span {
   display: block;
   overflow-wrap: anywhere;
-  font-size: 0.72rem;
+  font-size: 0.94rem;
   font-weight: 400;
 }
 
@@ -266,7 +267,7 @@ p {
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 12px;
 }
 
 .field {
@@ -276,7 +277,7 @@ p {
 
 .field span {
   color: var(--accent-colour);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
@@ -286,9 +287,9 @@ p {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 8px 10px;
+  padding: 10px 12px;
   color: var(--text);
-  font-size: 0.76rem;
+  font-size: 0.9rem;
   background: #ffffff;
   outline: none;
 }
@@ -308,30 +309,30 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 9px 11px;
+  padding: 13px 14px;
   border-radius: 8px;
   background: var(--soft);
 }
 
 .investment-band span {
   color: var(--muted);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
 .investment-band strong {
-  font-size: 0.86rem;
+  font-size: 1.05rem;
 }
 
 .extras-grid article {
   display: grid;
   gap: 6px;
-  padding: 9px;
+  padding: 12px;
 }
 
 .extras-grid span {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
 }
 
 .sent-message {
@@ -402,14 +403,12 @@ p {
 
 @media (max-width: 720px) {
   .planner-shell {
-    padding: 0;
+    padding: 12px;
   }
 
   .planner-panel {
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    box-shadow: none;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(44, 31, 26, 0.1);
   }
 
   .landing-grid,
