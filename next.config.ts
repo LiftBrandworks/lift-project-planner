@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "frame-ancestors 'self' https://liftbrandworks.com https://www.liftbrandworks.com;"
+              "frame-ancestors 'self' https://liftbrandworks.com https://www.liftbrandworks.com https://*.squarespace.com https://*.squarespace.io;"
           }
         ]
       }
