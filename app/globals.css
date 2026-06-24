@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&display=swap");
+
 :root {
   --primary-colour: #ff5b5b;
-  --accent-colour: #222222;
+  --accent-colour: #28b6bd;
   --text: #252525;
   --muted: #666666;
   --line: #e8e2df;
@@ -20,8 +22,9 @@ body {
   color: var(--text);
   background: transparent;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Lato, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
+  font-size: 13px;
   letter-spacing: 0;
 }
 
@@ -38,7 +41,7 @@ button {
 .planner-shell {
   width: 100%;
   min-width: 0;
-  padding: clamp(10px, 3vw, 22px);
+  padding: clamp(6px, 1.6vw, 12px);
   background:
     linear-gradient(135deg, rgba(255, 91, 91, 0.09), transparent 38%),
     var(--wash);
@@ -49,9 +52,9 @@ button {
 }
 
 .planner-panel {
-  width: min(100%, 860px);
+  width: min(100%, 640px);
   margin: 0 auto;
-  padding: clamp(16px, 3vw, 28px);
+  padding: clamp(12px, 2vw, 18px);
   border: 1px solid rgba(34, 34, 34, 0.08);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
@@ -60,20 +63,20 @@ button {
 
 .landing-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(230px, 0.85fr);
-  gap: clamp(18px, 4vw, 34px);
+  grid-template-columns: minmax(0, 1.1fr) minmax(170px, 0.9fr);
+  gap: clamp(12px, 2.5vw, 20px);
   align-items: center;
 }
 
 .landing-copy {
   display: grid;
-  gap: 16px;
+  gap: 10px;
   align-content: start;
 }
 
 .section-kicker {
   color: var(--primary-colour);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -88,40 +91,43 @@ p {
 
 h1,
 h2 {
-  max-width: 760px;
+  max-width: 430px;
   color: var(--accent-colour);
   font-weight: 700;
-  line-height: 1.03;
+  line-height: 1.12;
 }
 
 h1 {
-  font-size: clamp(1.95rem, 5.8vw, 3.7rem);
-  font-weight: 650;
+  font-size: clamp(1.2rem, 2.6vw, 1.95rem);
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 h2 {
-  font-size: clamp(1.55rem, 4.8vw, 2.6rem);
+  font-size: clamp(1.15rem, 2.8vw, 1.7rem);
 }
 
 h3 {
   color: var(--accent-colour);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 p {
-  max-width: 680px;
+  max-width: 430px;
   color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.6;
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .primary-button,
 .ghost-button {
-  min-height: 44px;
-  border-radius: 8px;
-  padding: 0 18px;
+  min-height: 34px;
+  border-radius: 0;
+  padding: 0 16px;
   border: 1px solid transparent;
+  font-size: 0.72rem;
   font-weight: 800;
+  text-transform: uppercase;
   transition:
     transform 160ms ease,
     box-shadow 160ms ease,
@@ -133,7 +139,7 @@ p {
   max-width: 100%;
   color: #ffffff;
   background: var(--primary-colour);
-  box-shadow: 0 10px 22px rgba(255, 91, 91, 0.22);
+  box-shadow: none;
 }
 
 .primary-button:hover,
@@ -155,7 +161,7 @@ p {
 
 .service-preview {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .service-preview div,
@@ -168,8 +174,13 @@ p {
 
 .service-preview div {
   display: grid;
-  gap: 6px;
-  padding: 12px 14px;
+  gap: 3px;
+  padding: 8px 10px;
+}
+
+.service-preview span,
+.service-preview strong {
+  font-size: 0.76rem;
 }
 
 .service-preview span,
@@ -184,13 +195,13 @@ p {
 
 .stack {
   display: grid;
-  gap: clamp(16px, 2.5vw, 22px);
+  gap: clamp(12px, 2vw, 18px);
 }
 
 .progress-wrap {
   display: grid;
-  gap: 8px;
-  margin-bottom: clamp(22px, 4vw, 34px);
+  gap: 6px;
+  margin-bottom: clamp(14px, 2.5vw, 22px);
 }
 
 .progress-meta {
@@ -198,13 +209,13 @@ p {
   justify-content: space-between;
   gap: 16px;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   font-weight: 800;
 }
 
 .progress-track {
   overflow: hidden;
-  height: 8px;
+  height: 6px;
   border-radius: 999px;
   background: #f0e8e4;
 }
@@ -220,13 +231,13 @@ p {
 .extras-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 8px;
 }
 
 .option-button {
   width: 100%;
-  min-height: 58px;
-  padding: 14px;
+  min-height: 40px;
+  padding: 9px 10px;
   text-align: left;
   color: var(--text);
   border: 1px solid var(--line);
@@ -237,7 +248,8 @@ p {
 .option-button span {
   display: block;
   overflow-wrap: anywhere;
-  font-weight: 750;
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .option-button.selected {
@@ -249,24 +261,24 @@ p {
 .button-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 10px;
 }
 
 .field {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .field span {
   color: var(--accent-colour);
-  font-size: 0.92rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
@@ -276,8 +288,9 @@ p {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 13px 14px;
+  padding: 10px 12px;
   color: var(--text);
+  font-size: 0.86rem;
   background: #ffffff;
   outline: none;
 }
@@ -296,35 +309,37 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 18px;
+  gap: 12px;
+  padding: 12px 14px;
   border-radius: 8px;
   background: var(--soft);
 }
 
 .investment-band span {
   color: var(--muted);
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
 .investment-band strong {
-  font-size: 1.35rem;
+  font-size: 1rem;
 }
 
 .extras-grid article {
   display: grid;
-  gap: 8px;
-  padding: 16px;
+  gap: 6px;
+  padding: 12px;
 }
 
 .extras-grid span {
   color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .sent-message {
   display: grid;
-  gap: 16px;
-  min-height: 280px;
+  gap: 12px;
+  min-height: 220px;
   align-content: center;
   text-align: center;
 }
@@ -336,24 +351,25 @@ p {
 
 .form-error {
   color: #a32222;
+  font-size: 0.86rem;
   font-weight: 700;
 }
 
 .submission-list {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .submission-card {
   display: grid;
-  gap: 14px;
-  padding: 16px;
+  gap: 10px;
+  padding: 12px;
 }
 
 .submission-card div:first-child {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -365,13 +381,13 @@ p {
 .submission-card dl {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 8px;
   margin: 0;
 }
 
 .submission-card dt {
   color: var(--accent-colour);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -382,7 +398,7 @@ p {
 }
 
 .notes {
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--line);
 }
 
