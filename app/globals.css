@@ -24,7 +24,7 @@ body {
   font-family:
     Lato, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0;
 }
 
@@ -41,10 +41,8 @@ button {
 .planner-shell {
   width: 100%;
   min-width: 0;
-  padding: clamp(6px, 1.6vw, 12px);
-  background:
-    linear-gradient(135deg, rgba(255, 91, 91, 0.09), transparent 38%),
-    var(--wash);
+  padding: clamp(4px, 1vw, 8px);
+  background: transparent;
 }
 
 .admin-shell {
@@ -52,31 +50,31 @@ button {
 }
 
 .planner-panel {
-  width: min(100%, 640px);
+  width: min(100%, 560px);
   margin: 0 auto;
-  padding: clamp(12px, 2vw, 18px);
+  padding: clamp(10px, 1.6vw, 14px);
   border: 1px solid rgba(34, 34, 34, 0.08);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 18px 45px rgba(44, 31, 26, 0.08);
+  box-shadow: 0 10px 28px rgba(44, 31, 26, 0.06);
 }
 
 .landing-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(170px, 0.9fr);
-  gap: clamp(12px, 2.5vw, 20px);
+  grid-template-columns: minmax(0, 1.25fr) minmax(140px, 0.75fr);
+  gap: clamp(10px, 2vw, 16px);
   align-items: center;
 }
 
 .landing-copy {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   align-content: start;
 }
 
 .section-kicker {
   color: var(--primary-colour);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -91,41 +89,41 @@ p {
 
 h1,
 h2 {
-  max-width: 430px;
+  max-width: 360px;
   color: var(--accent-colour);
   font-weight: 700;
   line-height: 1.12;
 }
 
 h1 {
-  font-size: clamp(1.2rem, 2.6vw, 1.95rem);
+  font-size: clamp(1.05rem, 2vw, 1.55rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: clamp(1.15rem, 2.8vw, 1.7rem);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
 }
 
 h3 {
   color: var(--accent-colour);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
 }
 
 p {
-  max-width: 430px;
+  max-width: 360px;
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.76rem;
+  line-height: 1.4;
 }
 
 .primary-button,
 .ghost-button {
-  min-height: 34px;
+  min-height: 30px;
   border-radius: 0;
-  padding: 0 16px;
+  padding: 0 12px;
   border: 1px solid transparent;
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 800;
   text-transform: uppercase;
   transition:
@@ -161,7 +159,7 @@ p {
 
 .service-preview {
   display: grid;
-  gap: 6px;
+  gap: 5px;
 }
 
 .service-preview div,
@@ -175,12 +173,12 @@ p {
 .service-preview div {
   display: grid;
   gap: 3px;
-  padding: 8px 10px;
+  padding: 6px 8px;
 }
 
 .service-preview span,
 .service-preview strong {
-  font-size: 0.76rem;
+  font-size: 0.68rem;
 }
 
 .service-preview span,
@@ -195,13 +193,13 @@ p {
 
 .stack {
   display: grid;
-  gap: clamp(12px, 2vw, 18px);
+  gap: clamp(10px, 1.6vw, 14px);
 }
 
 .progress-wrap {
   display: grid;
   gap: 6px;
-  margin-bottom: clamp(14px, 2.5vw, 22px);
+  margin-bottom: clamp(10px, 1.8vw, 14px);
 }
 
 .progress-meta {
@@ -209,7 +207,7 @@ p {
   justify-content: space-between;
   gap: 16px;
   color: var(--muted);
-  font-size: 0.76rem;
+  font-size: 0.66rem;
   font-weight: 800;
 }
 
@@ -231,13 +229,13 @@ p {
 .extras-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 6px;
 }
 
 .option-button {
   width: 100%;
-  min-height: 40px;
-  padding: 9px 10px;
+  min-height: 34px;
+  padding: 7px 9px;
   text-align: left;
   color: var(--text);
   border: 1px solid var(--line);
@@ -248,7 +246,7 @@ p {
 .option-button span {
   display: block;
   overflow-wrap: anywhere;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 400;
 }
 
@@ -268,7 +266,7 @@ p {
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .field {
@@ -278,7 +276,7 @@ p {
 
 .field span {
   color: var(--accent-colour);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 800;
 }
 
@@ -288,9 +286,9 @@ p {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   color: var(--text);
-  font-size: 0.86rem;
+  font-size: 0.76rem;
   background: #ffffff;
   outline: none;
 }
@@ -310,30 +308,30 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 9px 11px;
   border-radius: 8px;
   background: var(--soft);
 }
 
 .investment-band span {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 800;
 }
 
 .investment-band strong {
-  font-size: 1rem;
+  font-size: 0.86rem;
 }
 
 .extras-grid article {
   display: grid;
   gap: 6px;
-  padding: 12px;
+  padding: 9px;
 }
 
 .extras-grid span {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
 }
 
 .sent-message {

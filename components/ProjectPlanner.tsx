@@ -174,7 +174,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
               </button>
             </div>
             <div className="service-preview" aria-label="Available services">
-              {config.services.slice(0, 4).map((service) => (
+              {config.services.slice(0, 3).map((service) => (
                 <div key={service.id}>
                   <span>{service.title}</span>
                   <strong>{service.price}</strong>
@@ -218,7 +218,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
           <form className="stack" onSubmit={handleContactSubmit}>
             <div>
               <div className="section-kicker">Almost there</div>
-              <h2>Tell me where to send the next step</h2>
+              <h2>Send your brief</h2>
             </div>
             <div className="field-grid">
               <label className="field">

@@ -5,10 +5,9 @@ export const plannerConfig: PlannerConfig = {
   primaryColour: "#ff5b5b",
   accentColour: "#222222",
   landing: {
-    heading: "Find the right website service for your business",
-    subheading:
-      "Answer a few quick questions and I’ll point you towards the best next step.",
-    buttonLabel: "Start Your Project"
+    heading: "Find the right website service",
+    subheading: "Answer 5 quick questions. Get a clear next step.",
+    buttonLabel: "Start"
   },
   services: [
     {
