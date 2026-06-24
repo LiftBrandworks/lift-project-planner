@@ -54,6 +54,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
 
   function setSingleAnswer(question: Question, value: string) {
     setAnswers((current) => ({ ...current, [question.id]: value }));
+    window.setTimeout(goNext, 140);
   }
 
   function toggleMultiAnswer(question: Question, value: string) {
@@ -202,14 +203,16 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
               <button className="ghost-button" type="button" onClick={goBack}>
                 Back
               </button>
-              <button
-                className="primary-button"
-                type="button"
-                onClick={goNext}
-                disabled={!canContinue()}
-              >
-                Continue
-              </button>
+              {currentQuestion.type === "multi" ? (
+                <button
+                  className="primary-button"
+                  type="button"
+                  onClick={goNext}
+                  disabled={!canContinue()}
+                >
+                  Continue
+                </button>
+              ) : null}
             </div>
           </div>
         ) : null}
