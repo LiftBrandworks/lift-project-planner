@@ -2,33 +2,33 @@ import { PlannerConfig } from "@/types/planner";
 
 export const plannerConfig: PlannerConfig = {
   businessName: "Lift Brandworks",
-  primaryColour: "#ff5b5b",
-  accentColour: "#28b6bd",
+  primaryColour: "#ff3f44",
+  accentColour: "#ff3f44",
   landing: {
     heading: "Find the right website service",
     subheading: "Answer 5 quick questions. Get a clear next step.",
-    buttonLabel: "Start"
+    buttonLabel: "Start my recommendation"
   },
   services: [
     {
       id: "website-review",
       title: "Website Review & Action Plan",
       description:
-        "Clear breakdown of what is working, what is not, and exactly how to improve the site.",
+        "In-depth review with clear, actionable steps.",
       price: "£250 / $320"
     },
     {
       id: "seo-review",
       title: "SEO Review & Setup",
       description:
-        "SEO review and practical implementation to improve structure, page titles, key content and search visibility.",
+        "Technical SEO audit and setup.",
       price: "£400 / $520"
     },
     {
       id: "copy-refresh",
       title: "Content & Copy Refresh",
       description:
-        "Review and refine website copy so it feels clearer, more engaging, and focused on enquiries.",
+        "Stronger messaging that converts.",
       price: "£500 / $650"
     },
     {

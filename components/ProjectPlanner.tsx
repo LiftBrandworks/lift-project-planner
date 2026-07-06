@@ -29,6 +29,20 @@ const emptyContact: ContactDetails = {
 };
 
 const storageKey = "lift-project-planner-submissions";
+const stepLabels = [
+  "Your Business",
+  "Your Goals",
+  "Website Needs",
+  "Add-Ons",
+  "Your Details"
+];
+
+const serviceIcons = ["store", "search", "edit"];
+const trustItems = [
+  { icon: "shield", label: "No obligation" },
+  { icon: "clock", label: "Takes 2 minutes" },
+  { icon: "lock", label: "Your details are safe" }
+];
 
 export function ProjectPlanner({ config }: { config: PlannerConfig }) {
   const [stage, setStage] = useState<PlannerStage>("landing");
@@ -38,15 +52,9 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
   const [isSending, setIsSending] = useState(false);
 
   const currentQuestion = config.questions[questionIndex];
-  const totalSteps = config.questions.length + 2;
+  const totalSteps = config.questions.length;
   const activeStep =
-    stage === "landing"
-      ? 0
-      : stage === "questions"
-        ? questionIndex + 1
-        : stage === "contact"
-          ? config.questions.length + 1
-          : totalSteps;
+    stage === "questions" ? questionIndex + 1 : stage === "landing" ? 1 : totalSteps;
   const recommendation = useMemo(
     () => getRecommendation(answers, config),
     [answers, config]
@@ -156,30 +164,56 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
       }
     >
       <section className="planner-panel" aria-live="polite">
-        {stage !== "landing" ? (
-          <Progress activeStep={activeStep} totalSteps={totalSteps} />
-        ) : null}
+        <PlannerHeader
+          activeStep={activeStep}
+          businessName={config.businessName}
+          heading={config.landing.heading}
+          subheading={config.landing.subheading}
+          totalSteps={totalSteps}
+        />
 
         {stage === "landing" ? (
-          <div className="landing-grid">
-            <div className="landing-copy">
-              <div className="section-kicker">{config.businessName}</div>
-              <h1>{config.landing.heading}</h1>
-              <p>{config.landing.subheading}</p>
-              <button
-                className="primary-button"
-                type="button"
-                onClick={() => setStage("questions")}
-              >
-                {config.landing.buttonLabel}
-              </button>
+          <div className="landing-stack">
+            <StepNav activeStep={activeStep} />
+            <button
+              className="primary-button hero-button"
+              type="button"
+              onClick={() => setStage("questions")}
+            >
+              <span>{config.landing.buttonLabel}</span>
+              <Icon name="arrow" />
+            </button>
+            <div className="service-preview" aria-label="Popular services">
+              <div className="section-rule">
+                <span>Popular services</span>
+              </div>
+              <div className="service-list">
+                {config.services.slice(0, 3).map((service, index) => (
+                  <article className="service-row" key={service.id}>
+                    <span className="service-icon" aria-hidden="true">
+                      <Icon name={serviceIcons[index] ?? "store"} />
+                    </span>
+                    <span className="service-copy">
+                      <strong>{service.title}</strong>
+                      <span>{service.description}</span>
+                    </span>
+                    <span className="service-price">
+                      <span>from</span>
+                      <strong>{service.price}</strong>
+                    </span>
+                    <span className="service-arrow" aria-hidden="true">
+                      <Icon name="chevron" />
+                    </span>
+                  </article>
+                ))}
+              </div>
             </div>
-            <div className="service-preview" aria-label="Available services">
-              {config.services.slice(0, 3).map((service) => (
-                <div key={service.id}>
-                  <span>{service.title}</span>
-                  <strong>{service.price}</strong>
-                </div>
+            <div className="trust-strip" aria-label="Project planner details">
+              {trustItems.map((item) => (
+                <span key={item.label}>
+                  <Icon name={item.icon} />
+                  {item.label}
+                </span>
               ))}
             </div>
           </div>
@@ -187,6 +221,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
 
         {stage === "questions" && currentQuestion ? (
           <div className="stack">
+            <StepNav activeStep={activeStep} />
             <div>
               <div className="section-kicker">
                 Step {questionIndex + 1} of {config.questions.length}
@@ -219,6 +254,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
 
         {stage === "contact" ? (
           <form className="stack" onSubmit={handleContactSubmit}>
+            <StepNav activeStep={activeStep} />
             <div>
               <div className="section-kicker">Almost there</div>
               <h2>Send your brief</h2>
@@ -295,6 +331,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
 
         {stage === "results" ? (
           <div className="stack results">
+            <StepNav activeStep={activeStep} />
             <div>
               <div className="section-kicker">Recommended package</div>
               <h2>{recommendation.mainService.title}</h2>
@@ -349,28 +386,153 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
   );
 }
 
-function Progress({
+function PlannerHeader({
   activeStep,
+  businessName,
+  heading,
+  subheading,
   totalSteps
 }: {
   activeStep: number;
+  businessName: string;
+  heading: string;
+  subheading: string;
   totalSteps: number;
 }) {
+  const progress = Math.max(0, Math.min(1, activeStep / totalSteps));
+
   return (
-    <div className="progress-wrap" aria-label={`Step ${activeStep} of ${totalSteps}`}>
-      <div className="progress-meta">
-        <span>Project Planner</span>
+    <header className="planner-header">
+      <div>
+        <div className="section-kicker">{businessName}</div>
+        <h1>{heading}</h1>
+        <p>{subheading}</p>
+      </div>
+      <div
+        className="progress-ring"
+        style={{ "--progress": `${progress * 360}deg` } as React.CSSProperties}
+        aria-label={`Step ${activeStep} of ${totalSteps}`}
+      >
         <span>
           {activeStep}/{totalSteps}
         </span>
       </div>
-      <div className="progress-track">
-        <div
-          className="progress-fill"
-          style={{ width: `${(activeStep / totalSteps) * 100}%` }}
-        />
-      </div>
-    </div>
+    </header>
+  );
+}
+
+function StepNav({ activeStep }: { activeStep: number }) {
+  return (
+    <nav className="step-nav" aria-label="Planner steps">
+      {stepLabels.map((label, index) => {
+        const step = index + 1;
+        const isActive = step === activeStep;
+        const isComplete = step < activeStep;
+
+        return (
+          <div
+            className={[
+              "step-item",
+              isActive ? "active" : "",
+              isComplete ? "complete" : ""
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            key={label}
+          >
+            <span className="step-node">
+              <Icon name={["store", "target", "screen", "add", "user"][index]} />
+            </span>
+            <span className="step-label">{label}</span>
+          </div>
+        );
+      })}
+    </nav>
+  );
+}
+
+function Icon({ name }: { name: string }) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    strokeWidth: 2
+  };
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24">
+      {name === "store" ? (
+        <>
+          <path {...common} d="M4 10h16l-1.2-5.2A1 1 0 0 0 17.83 4H6.17a1 1 0 0 0-.97.8L4 10Z" />
+          <path {...common} d="M6 10v9h12v-9" />
+          <path {...common} d="M9 19v-5h6v5" />
+          <path {...common} d="M4 10c.6 1.3 2.4 1.3 3 0 .6 1.3 2.4 1.3 3 0 .6 1.3 2.4 1.3 3 0 .6 1.3 2.4 1.3 3 0 .6 1.3 2.4 1.3 3 0" />
+        </>
+      ) : null}
+      {name === "target" ? (
+        <>
+          <circle {...common} cx="12" cy="12" r="7" />
+          <circle {...common} cx="12" cy="12" r="3" />
+          <path {...common} d="M15 9l4-4" />
+          <path {...common} d="M19 5v4h-4" />
+        </>
+      ) : null}
+      {name === "screen" ? (
+        <>
+          <rect {...common} x="4" y="5" width="16" height="11" rx="1.5" />
+          <path {...common} d="M8 20h8" />
+          <path {...common} d="M12 16v4" />
+        </>
+      ) : null}
+      {name === "add" ? (
+        <>
+          <path {...common} d="M12 5v14" />
+          <path {...common} d="M5 12h14" />
+          <path {...common} d="M17 7l-2-2h-6L7 7v10l2 2h6l2-2V7Z" />
+        </>
+      ) : null}
+      {name === "user" ? (
+        <>
+          <circle {...common} cx="12" cy="8" r="3" />
+          <path {...common} d="M5 20c1.4-3.5 4-5 7-5s5.6 1.5 7 5" />
+        </>
+      ) : null}
+      {name === "search" ? (
+        <>
+          <circle {...common} cx="11" cy="11" r="6" />
+          <path {...common} d="M16 16l4 4" />
+        </>
+      ) : null}
+      {name === "edit" ? (
+        <>
+          <path {...common} d="M4 20h4l11-11-4-4L4 16v4Z" />
+          <path {...common} d="M13 7l4 4" />
+        </>
+      ) : null}
+      {name === "arrow" ? (
+        <>
+          <path {...common} d="M5 12h14" />
+          <path {...common} d="M13 6l6 6-6 6" />
+        </>
+      ) : null}
+      {name === "chevron" ? <path {...common} d="M9 5l7 7-7 7" /> : null}
+      {name === "shield" ? (
+        <path {...common} d="M12 3l7 3v5c0 4.5-2.7 7.6-7 10-4.3-2.4-7-5.5-7-10V6l7-3Z" />
+      ) : null}
+      {name === "clock" ? (
+        <>
+          <circle {...common} cx="12" cy="12" r="8" />
+          <path {...common} d="M12 8v5l3 2" />
+        </>
+      ) : null}
+      {name === "lock" ? (
+        <>
+          <rect {...common} x="5" y="11" width="14" height="9" rx="1.5" />
+          <path {...common} d="M8 11V8a4 4 0 0 1 8 0v3" />
+        </>
+      ) : null}
+    </svg>
   );
 }
 
