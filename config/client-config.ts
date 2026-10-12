@@ -2,8 +2,8 @@ import { PlannerConfig } from "@/types/planner";
 
 export const plannerConfig: PlannerConfig = {
   businessName: "Lift Brandworks",
-  primaryColour: "#ff3f44",
-  accentColour: "#ff3f44",
+  primaryColour: "#d1ac60",
+  accentColour: "#d1ac60",
   landing: {
     heading: "Find the right website service",
     subheading: "Answer 5 quick questions. Get a clear next step.",
