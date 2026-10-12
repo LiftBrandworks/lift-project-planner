@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&display=swap");
 
 :root {
-  --primary-colour: #ff3f44;
-  --accent-colour: #ff3f44;
-  --text: #171717;
-  --muted: #69656a;
-  --line: #e7ddda;
-  --panel: #fffdfc;
-  --soft: #fff1f1;
-  --wash: #fbebe8;
+  --primary-colour: #d1ac60;
+  --accent-colour: #d1ac60;
+  --text: #f5f0e6;
+  --muted: #c0b8a8;
+  --line: #504633;
+  --panel: #20201e;
+  --soft: #332d21;
+  --wash: #27251f;
 }
 
 * {
@@ -50,8 +50,8 @@ svg {
   min-height: 100dvh;
   padding: 18px;
   background:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.28), transparent 32%),
-    linear-gradient(135deg, #ff3d42 0%, #ff5751 55%, #ef342e 100%);
+    radial-gradient(circle at 18% 0%, rgba(209, 172, 96, 0.12), transparent 45%),
+    linear-gradient(135deg, #181917 0%, #25251f 55%, #111210 100%);
 }
 
 .admin-shell {
@@ -62,12 +62,12 @@ svg {
   width: min(100%, 960px);
   margin: 0 auto;
   padding: 38px 42px 30px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(209, 172, 96, 0.38);
   border-radius: 20px;
   background:
-    radial-gradient(circle at 36% 5%, rgba(255, 246, 242, 0.9), transparent 34%),
-    linear-gradient(180deg, rgba(255, 253, 252, 0.98), rgba(255, 249, 247, 0.96));
-  box-shadow: 0 22px 48px rgba(113, 28, 22, 0.22);
+    radial-gradient(circle at 36% 0%, rgba(209, 172, 96, 0.07), transparent 40%),
+    linear-gradient(180deg, #24241f, #191a17);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.3);
 }
 
 .planner-header {
@@ -133,7 +133,7 @@ p {
   place-items: center;
   border-radius: 50%;
   color: var(--text);
-  background: conic-gradient(var(--primary-colour) var(--progress), #ded8d6 0);
+  background: conic-gradient(var(--primary-colour) var(--progress), #494337 0);
 }
 
 .progress-ring::before {
@@ -170,7 +170,7 @@ p {
   justify-items: center;
   gap: 8px;
   min-width: 0;
-  color: #6b686c;
+  color: #b8ad99;
   text-align: center;
 }
 
@@ -181,11 +181,11 @@ p {
   left: calc(50% + 30px);
   width: calc(100% - 60px);
   height: 2px;
-  background: #e1dbd9;
+  background: #494337;
 }
 
 .step-item.complete:not(:last-child)::after {
-  background: rgba(255, 63, 68, 0.55);
+  background: rgba(209, 172, 96, 0.55);
 }
 
 .step-node {
@@ -195,10 +195,10 @@ p {
   width: 46px;
   aspect-ratio: 1;
   place-items: center;
-  border: 2px solid #ded8d6;
+  border: 2px solid #494337;
   border-radius: 50%;
-  color: #6d696c;
-  background: #fffdfc;
+  color: #b8ad99;
+  background: #20201e;
   box-shadow: 0 2px 7px rgba(70, 44, 36, 0.08);
 }
 
@@ -209,10 +209,10 @@ p {
 
 .step-item.active .step-node,
 .step-item.complete .step-node {
-  border-color: rgba(255, 63, 68, 0.2);
-  color: #ffffff;
-  background: var(--primary-colour);
-  box-shadow: 0 6px 14px rgba(255, 63, 68, 0.28);
+  border-color: rgba(209, 172, 96, 0.2);
+  color: #191a16;
+  background: linear-gradient(115deg, #c39a46, #e4c884 50%, #cba552);
+  box-shadow: 0 6px 14px rgba(209, 172, 96, 0.28);
 }
 
 .step-label {
@@ -252,9 +252,9 @@ p {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: #ffffff;
-  background: var(--primary-colour);
-  box-shadow: 0 10px 18px rgba(255, 63, 68, 0.22);
+  color: #191a16;
+  background: linear-gradient(115deg, #c39a46, #e4c884 50%, #cba552);
+  box-shadow: 0 10px 18px rgba(209, 172, 96, 0.22);
 }
 
 .primary-button svg {
@@ -285,7 +285,7 @@ p {
 
 .ghost-button {
   color: var(--primary-colour);
-  background: #ffffff;
+  background: #20211d;
   border-color: var(--line);
 }
 
@@ -293,7 +293,7 @@ p {
   display: flex;
   align-items: center;
   gap: 14px;
-  color: #777276;
+  color: #b9ad94;
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -304,7 +304,7 @@ p {
   content: "";
   height: 1px;
   flex: 1;
-  background: #e4dcda;
+  background: #504633;
 }
 
 .service-preview,
@@ -318,7 +318,7 @@ p {
 .submission-card {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(31, 32, 28, 0.92);
 }
 
 .service-row {
@@ -328,7 +328,7 @@ p {
   gap: 16px;
   min-height: 80px;
   padding: 10px 18px;
-  box-shadow: 0 5px 15px rgba(75, 45, 40, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.14);
 }
 
 .service-icon {
@@ -382,7 +382,7 @@ p {
 }
 
 .service-arrow {
-  color: #858184;
+  color: #c4aa76;
   font-size: 1.35rem;
 }
 
@@ -394,8 +394,8 @@ p {
   min-height: 58px;
   padding: 12px 18px;
   border-radius: 8px;
-  color: #676267;
-  background: rgba(251, 235, 232, 0.72);
+  color: #c0b8a8;
+  background: rgba(209, 172, 96, 0.06);
 }
 
 .trust-strip > span {
@@ -409,13 +409,13 @@ p {
 }
 
 .trust-strip > span:not(:last-child) {
-  border-right: 1px solid #d9cfcc;
+  border-right: 1px solid #504633;
 }
 
 .trust-strip svg {
   width: 18px;
   height: 18px;
-  color: #777276;
+  color: #b9ad94;
 }
 
 .option-grid,
@@ -433,7 +433,7 @@ p {
   text-align: left;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
+  background: #22231f;
 }
 
 .option-button span {
@@ -482,7 +482,7 @@ p {
   padding: 11px 13px;
   color: var(--text);
   font-size: 0.95rem;
-  background: #ffffff;
+  background: #20211d;
   outline: none;
 }
 
@@ -493,7 +493,7 @@ p {
 .field input:focus,
 .field textarea:focus {
   border-color: var(--primary-colour);
-  box-shadow: 0 0 0 3px rgba(255, 63, 68, 0.14);
+  box-shadow: 0 0 0 3px rgba(209, 172, 96, 0.14);
 }
 
 .investment-band {
@@ -502,7 +502,7 @@ p {
   justify-content: space-between;
   gap: 12px;
   padding: 16px 18px;
-  border: 1px solid rgba(255, 63, 68, 0.18);
+  border: 1px solid rgba(209, 172, 96, 0.18);
   border-radius: 8px;
   background: var(--soft);
 }
@@ -542,7 +542,7 @@ p {
 }
 
 .form-error {
-  color: #a32222;
+  color: #ffb4a8;
   font-size: 0.86rem;
   font-weight: 700;
 }
@@ -603,7 +603,7 @@ p {
   .planner-panel {
     padding: 24px 18px 18px;
     border-radius: 16px;
-    box-shadow: 0 12px 28px rgba(113, 28, 22, 0.18);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
   }
 
   .planner-header {
@@ -699,5 +699,39 @@ p {
 
   .investment-band {
     display: grid;
+  }
+}
+
+/* Metallic heading finish shared with the Squarespace site. */
+.planner-panel :is(h1, h2, h3) {
+  color: #dfc17c;
+  background: linear-gradient(110deg, #c39a46 0%, #dfc17c 38%, #fff0b9 48%, #dfc17c 58%, #c39a46 100%);
+  background-size: 250% 100%;
+  background-position: 100% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+button:focus-visible {
+  outline: 2px solid #e4c884;
+  outline-offset: 4px;
+}
+.field input::placeholder, .field textarea::placeholder { color: #a99e89; }
+.option-button:hover { border-color: #a8894d; }
+@media (prefers-reduced-motion: no-preference) {
+  .planner-panel :is(h1, h2, h3) { animation: lift-gold-shimmer 9s ease-in-out infinite; }
+}
+@keyframes lift-gold-shimmer {
+  0%, 18% { background-position: 100% 50%; }
+  62%, 100% { background-position: 0% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+@media (forced-colors: active) {
+  .planner-panel :is(h1, h2, h3) {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+    animation: none;
   }
 }
