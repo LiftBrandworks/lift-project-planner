@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { getRecommendation } from "@/lib/recommendation";
 import {
   ContactDetails,
@@ -10,7 +10,7 @@ import {
   StoredSubmission
 } from "@/types/planner";
 
-type PlannerStage = "landing" | "questions" | "contact" | "results" | "sent";
+type PlannerStage = "landing" | "questions" | "contact" | "sent";
 
 const emptyAnswers: PlannerAnswers = {
   need: "",
@@ -44,12 +44,23 @@ const trustItems = [
   { icon: "lock", label: "Your details are safe" }
 ];
 
-export function ProjectPlanner({ config }: { config: PlannerConfig }) {
-  const [stage, setStage] = useState<PlannerStage>("landing");
+export function ProjectPlanner({ config, embedded = false }: { config: PlannerConfig; embedded?: boolean }) {
+  const [stage, setStage] = useState<PlannerStage>(embedded ? "questions" : "landing");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<PlannerAnswers>(emptyAnswers);
   const [contact, setContact] = useState<ContactDetails>(emptyContact);
   const [isSending, setIsSending] = useState(false);
+
+  const [sendError, setSendError] = useState("");
+  const [copySent, setCopySent] = useState(false);
+  const pending = useRef(false);
+  const requestKey = useRef("");
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("start") === "1") {
+      setStage("questions");
+    }
+  }, []);
 
   const currentQuestion = config.questions[questionIndex];
   const totalSteps = config.questions.length;
@@ -61,11 +72,13 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
   );
 
   function setSingleAnswer(question: Question, value: string) {
+    requestKey.current = "";
     setAnswers((current) => ({ ...current, [question.id]: value }));
-    window.setTimeout(goNext, 140);
+    goNext();
   }
 
   function toggleMultiAnswer(question: Question, value: string) {
+    requestKey.current = "";
     setAnswers((current) => {
       const selected = current[question.id] as string[];
       const nextSelected =
@@ -106,11 +119,6 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
       return;
     }
 
-    if (stage === "results") {
-      setStage("contact");
-      return;
-    }
-
     if (questionIndex > 0) {
       setQuestionIndex((index) => index - 1);
       return;
@@ -119,43 +127,41 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
     setStage("landing");
   }
 
-  function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStage("results");
-  }
-
-  async function sendSubmission() {
+    if (pending.current) return;
+    pending.current = true;
     setIsSending(true);
+    setSendError("");
+    if (!requestKey.current) requestKey.current = crypto.randomUUID();
     const submission: StoredSubmission = {
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-      answers,
-      contact,
-      recommendation
+      id: requestKey.current, createdAt: new Date().toISOString(), answers, contact, recommendation
     };
-
-    const saved = window.localStorage.getItem(storageKey);
-    const current: StoredSubmission[] = saved ? JSON.parse(saved) : [];
-    window.localStorage.setItem(
-      storageKey,
-      JSON.stringify([submission, ...current])
-    );
-
     try {
-      await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch("/api/submit", {
+        method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission)
       });
-    } finally {
-      setIsSending(false);
+      if (!response.ok) throw new Error("Delivery failed");
+      const result = await response.json();
+      if (!result.emailSent) throw new Error("Delivery failed");
+      setCopySent(result.visitorEmailSent === true);
       setStage("sent");
+      try {
+        const saved = JSON.parse(window.localStorage.getItem(storageKey) || "[]");
+        window.localStorage.setItem(storageKey, JSON.stringify([submission, ...saved]));
+      } catch { /* Submission still succeeds when browser storage is unavailable. */ }
+    } catch {
+      setSendError("We couldn’t send your brief. Your answers are still here. Please try again.");
+    } finally {
+      pending.current = false;
+      setIsSending(false);
     }
   }
 
   return (
     <main
-      className="planner-shell"
+      className={embedded ? "planner-shell planner-embedded" : "planner-shell"}
       style={
         {
           "--primary-colour": config.primaryColour,
@@ -168,7 +174,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
           activeStep={activeStep}
           businessName={config.businessName}
           heading={config.landing.heading}
-          subheading={config.landing.subheading}
+          subheading="Get a starting estimate by email. Rob will review your answers and follow up."
           totalSteps={totalSteps}
         />
 
@@ -253,11 +259,11 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
         ) : null}
 
         {stage === "contact" ? (
-          <form className="stack" onSubmit={handleContactSubmit}>
+          <form className="stack" onSubmit={handleContactSubmit} onChange={() => { requestKey.current = ""; }}>
             <StepNav activeStep={activeStep} />
             <div>
               <div className="section-kicker">Almost there</div>
-              <h2>Send your brief</h2>
+              <h2>Where should I send your starting estimate?</h2>
             </div>
             <div className="field-grid">
               <label className="field">
@@ -309,7 +315,7 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
               </label>
             </div>
             <label className="field">
-              <span>Short notes about the project</span>
+              <span>What does your business do, and when do you need the work? (optional)</span>
               <textarea
                 rows={5}
                 value={contact.notes}
@@ -322,63 +328,21 @@ export function ProjectPlanner({ config }: { config: PlannerConfig }) {
               <button className="ghost-button" type="button" onClick={goBack}>
                 Back
               </button>
-              <button className="primary-button" type="submit">
-                See Recommendation
+              <button className="primary-button" type="submit" disabled={isSending}>
+                {isSending ? "Sending…" : "Email my starting point"}
               </button>
             </div>
+            {sendError && <p role="alert">{sendError}</p>}
           </form>
-        ) : null}
-
-        {stage === "results" ? (
-          <div className="stack results">
-            <StepNav activeStep={activeStep} />
-            <div>
-              <div className="section-kicker">Recommended package</div>
-              <h2>{recommendation.mainService.title}</h2>
-              <p>{recommendation.explanation}</p>
-            </div>
-            <div className="investment-band">
-              <span>Estimated investment</span>
-              <strong>{recommendation.mainService.price}</strong>
-            </div>
-            {recommendation.extras.length > 0 ? (
-              <div>
-                <h3>Useful extras</h3>
-                <div className="extras-grid">
-                  {recommendation.extras.map((extra) => (
-                    <article key={extra.id}>
-                      <strong>{extra.title}</strong>
-                      <span>{extra.price}</span>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            <div>
-              <h3>What happens next</h3>
-              <p>{recommendation.nextStep}</p>
-            </div>
-            <div className="button-row">
-              <button className="ghost-button" type="button" onClick={goBack}>
-                Back
-              </button>
-              <button
-                className="primary-button"
-                type="button"
-                onClick={sendSubmission}
-                disabled={isSending}
-              >
-                {isSending ? "Sending..." : "Send My Project Brief"}
-              </button>
-            </div>
-          </div>
         ) : null}
 
         {stage === "sent" ? (
           <div className="sent-message">
             <div className="section-kicker">Brief sent</div>
-            <h2>Thanks, your project brief has been sent.</h2>
-            <p>I’ll review it and come back with a clear next step.</p>
+            <h2>{recommendation.mainService.title}</h2>
+            <p>Starting estimate: {recommendation.mainService.price}</p>
+            <p>{recommendation.explanation}</p>
+            <p>{copySent ? "Your recommendation is on its way by email." : "Your brief reached Rob, but your email copy could not be sent."} Rob will follow up to confirm the scope and price.</p>
           </div>
         ) : null}
       </section>

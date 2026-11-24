@@ -17,8 +17,9 @@ export function EmbedResizeBridge() {
       animationFrame = window.requestAnimationFrame(() => {
         const body = document.body;
         const html = document.documentElement;
+        const launcher = document.querySelector(".planner-launcher, .planner-embedded");
         const height = Math.ceil(
-          Math.max(
+          launcher ? launcher.getBoundingClientRect().height : Math.max(
             body.scrollHeight,
             body.offsetHeight,
             html.clientHeight,
