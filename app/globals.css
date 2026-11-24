@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;800&display=swap");
 
 :root {
+  --lift-honeycomb: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2236%22%20height%3D%2220.784%22%20viewBox%3D%220%200%2036%2020.784%22%3E%3Cpath%20d%3D%22M0%2010.392%206%200H18L24%2010.392%2018%2020.784H6ZM24%2010.392H36%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-opacity%3D%22.14%22%20stroke-width%3D%22.8%22%2F%3E%3C%2Fsvg%3E");
   --primary-colour: #d1ac60;
   --accent-colour: #d1ac60;
   --text: #f5f0e6;
@@ -52,6 +53,39 @@ svg {
   background:
     radial-gradient(circle at 18% 0%, rgba(209, 172, 96, 0.12), transparent 45%),
     linear-gradient(135deg, #181917 0%, #25251f 55%, #111210 100%);
+}
+
+/* A quiet breathing texture behind the planner content. */
+.planner-shell,
+.planner-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.planner-shell::before,
+.planner-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: var(--lift-honeycomb);
+  background-size: 48px 27.712px;
+  filter: invert(1);
+  opacity: 0.22;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .planner-shell::before,
+  .planner-panel::before {
+    animation: honeycomb-breathe 12s ease-in-out infinite;
+  }
+}
+
+@keyframes honeycomb-breathe {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.38; }
 }
 
 .admin-shell {
@@ -211,7 +245,8 @@ p {
 .step-item.complete .step-node {
   border-color: rgba(209, 172, 96, 0.2);
   color: #191a16;
-  background: linear-gradient(115deg, #c39a46, #e4c884 50%, #cba552);
+  background: var(--primary-colour) var(--lift-honeycomb) repeat;
+  background-size: 24px 13.856px;
   box-shadow: 0 6px 14px rgba(209, 172, 96, 0.28);
 }
 
@@ -253,7 +288,8 @@ p {
   justify-content: center;
   gap: 12px;
   color: #191a16;
-  background: linear-gradient(115deg, #c39a46, #e4c884 50%, #cba552);
+  background: var(--primary-colour) var(--lift-honeycomb) repeat;
+  background-size: 24px 13.856px;
   box-shadow: 0 10px 18px rgba(209, 172, 96, 0.22);
 }
 
@@ -702,12 +738,11 @@ p {
   }
 }
 
-/* Metallic heading finish shared with the Squarespace site. */
+/* Fine static honeycomb shared with the Squarespace site. */
 .planner-panel :is(h1, h2, h3) {
-  color: #dfc17c;
-  background: linear-gradient(110deg, #c39a46 0%, #dfc17c 38%, #fff0b9 48%, #dfc17c 58%, #c39a46 100%);
-  background-size: 250% 100%;
-  background-position: 100% 50%;
+  color: var(--primary-colour);
+  background: currentColor var(--lift-honeycomb) repeat;
+  background-size: 24px 13.856px;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -718,20 +753,64 @@ button:focus-visible {
 }
 .field input::placeholder, .field textarea::placeholder { color: #a99e89; }
 .option-button:hover { border-color: #a8894d; }
-@media (prefers-reduced-motion: no-preference) {
-  .planner-panel :is(h1, h2, h3) { animation: lift-gold-shimmer 9s ease-in-out infinite; }
-}
-@keyframes lift-gold-shimmer {
-  0%, 18% { background-position: 100% 50%; }
-  62%, 100% { background-position: 0% 50%; }
-}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
 }
 @media (forced-colors: active) {
+  .planner-shell::before,
+  .planner-panel::before { display: none; }
+  .primary-button,
+  .step-item.active .step-node,
+  .step-item.complete .step-node {
+    background-image: none;
+  }
   .planner-panel :is(h1, h2, h3) {
     background: none;
     -webkit-text-fill-color: CanvasText;
     animation: none;
   }
 }
+
+/* Homepage invitation: complete card, no nested scrolling. */
+.planner-launcher {
+  position: relative;
+  isolation: isolate;
+  padding: 30px;
+  border: 1px solid #655638;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #292820, #181a17 75%);
+  box-shadow: inset 0 1px 0 #ffffff08;
+}
+.planner-launcher::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: var(--lift-honeycomb);
+  background-size: 48px 27.712px;
+  filter: invert(1);
+  opacity: .36;
+  mask-image: linear-gradient(135deg, black, transparent 80%);
+}
+.launcher-kicker { display:flex; align-items:center; gap:10px; color:#d1ac60; font-size:10px; font-weight:800; letter-spacing:1.4px; margin-bottom:20px; }
+.launcher-kicker > span { font-size:24px; }
+.planner-launcher h1 { font-size:clamp(28px, 7vw, 38px); line-height:1.08; letter-spacing:-.8px; color:#f5f0e6; }
+.planner-launcher > p { margin-top:14px; font-size:14px; line-height:1.55; }
+.launcher-steps { list-style:none; margin:24px 0; padding:0; display:grid; gap:17px; }
+.launcher-steps li { display:flex; align-items:center; gap:14px; }
+.launcher-steps li > span { display:grid; place-items:center; width:32px; height:32px; flex-shrink:0; border:1px solid #655638; border-radius:9px; color:#d1ac60; font-size:11px; font-weight:800; }
+.launcher-steps strong { display:block; font-size:14px; color:#f5f0e6; }
+.launcher-steps small { display:block; font-size:12px; line-height:1.4; color:#b5ae9f; margin-top:3px; }
+.launcher-button { display:flex; align-items:center; justify-content:space-between; width:100%; text-decoration:none; min-height:54px; font-size:13px; }
+.launcher-button > span { font-size:22px; }
+.launcher-button:focus-visible { outline:3px solid #f5f0e6; outline-offset:4px; }
+.launcher-note { display:flex; justify-content:center; gap:12px; margin-top:14px; font-size:11px; color:#b5ae9f; }
+@keyframes launcher-honeycomb-breathe {
+  0%, 100% { opacity: .24; }
+  50% { opacity: .58; }
+}
+@media (prefers-reduced-motion: no-preference) { .planner-launcher::before { animation:launcher-honeycomb-breathe 12s ease-in-out infinite; } }
+@media (max-width:360px) { .planner-launcher { padding:22px; } }
+
+.planner-shell.planner-embedded { min-height: 0; }
